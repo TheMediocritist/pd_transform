@@ -1,6 +1,6 @@
 local pd <const> = playdate
 local gfx <const> = pd.graphics
-local geom = pd.geometry
+local geom <const> = pd.geometry
 
 local ground = 220
 
