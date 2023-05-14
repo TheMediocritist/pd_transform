@@ -21,7 +21,7 @@ end
 initialize()
 
 function pd.update()
-    gfx.clear()
+    gfx.clear() -- To do: use dirty rects for partial screen updates
     for o = 1, #objects do
         objects[o]:update()
     end
