@@ -22,22 +22,17 @@ function Item:init(x, y, width, height)
     self.geoms = {}
     self.geoms[1] = geom.polygon.new(
         -- make a rectangle by default - override in child class
-        x - width/2, 
-        y - height/2,
-        x + width/2,
-        y - height/2,
-        x + width/2,
-        y + height/2,
-        x - width/2, 
-        y + height/2,
-        x - width/2, 
-        y - height/2
+        x - width/2, y - height/2,
+        x + width/2, y - height/2,
+        x + width/2, y + height/2,
+        x - width/2, y + height/2,
+        x - width/2, y - height/2
     )
     self.transform = geom.affineTransform.new()
 end
 
 function Item:update()
-    --Item.super.update(self)
+    --Item.super.update(self) -- To do: work out how to retain useful sprite functions (collisions, etc)
     
     -- Note: always rotateBy BEFORE moveBy !!
     
