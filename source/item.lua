@@ -56,7 +56,7 @@ function Item:addGravity()
         --self:moveTo(self.x, ground - self.height/2)
         
         if self.vely > 0.5 then
-            vel.y -= self.vely + 0.6 * self.vely
+            vel.y -= self.vely + 0.7 * self.vely
         else 
             vel.y = -self.vely
         end

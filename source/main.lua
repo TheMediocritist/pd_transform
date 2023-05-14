@@ -4,6 +4,8 @@ import "CoreLibs/sprites"
 
 import "item"
 import "katamari"
+import "triangle"
+import "circle"
 
 local pd <const> = playdate
 local gfx <const> = playdate.graphics
@@ -17,9 +19,16 @@ local objects = {}
 
 local function initialize()
     for i = 1, 20 do
-        objects[#objects+1] = Item(math.random(50, 350), 0, 20, 20)
+        objects[#objects+1] = Triangle(math.random(0, 100), 10, 10, 20)
     end
-    katamari = Katamari(20, 200, 30, 30)
+    for i = 1, 20 do
+        objects[#objects+1] = Item(math.random(150, 250), 0, 20, 20)
+    end
+    for i = 1, 20 do
+        objects[#objects+1] = Circle(math.random(300, 400), 10, 10, 20)
+    end
+    
+    katamari = Katamari(20, 60, 30, 30)
 end
 
 initialize()
