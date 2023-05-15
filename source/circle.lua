@@ -2,14 +2,14 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = pd.geometry
 
-local ground = 220
+-- local ground = 220
 
 class('Circle').extends(Item)
 
 function Circle:init(x, y, width, height)
-	Circle.super.init(self, x, y, width, height)
+	Circle.super.init(self, x, y - width/2, width, height)
 	self.velx = math.random(-40, 0)/10
-	self.geoms[1] = geom.arc.new(x, y, width/2, 0, 360)
+	self.geoms[1] = geom.arc.new(x, y - width/2, width, 0, 360)
 end
 
 function Circle:updateGeometry()

@@ -2,7 +2,7 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = pd.geometry
 
-local ground = 220
+--local ground = 220
 
 class('Triangle').extends(Item)
 

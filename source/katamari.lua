@@ -2,15 +2,15 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = pd.geometry
 
-local ground = 220
+--local ground = 220
 
 class('Katamari').extends(Item)
 
 function Katamari:init(x, y, width, height)
-    Katamari.super.init(self, x, y, width, height)
+    Katamari.super.init(self, x, y - width/2, width, height)
     self.velx = 0
     self.vely = 0
-    self.geoms[1] = geom.arc.new(x, y, width/2, 0, 360)
+    self.geoms[1] = geom.arc.new(x, y, y - width/2, 0, 360)
     self.geoms[2] = geom.lineSegment.new(x, y - width/2, x, y)
 end
 
@@ -23,6 +23,12 @@ end
 function Katamari:draw()
     gfx.drawArc(self.geoms[1])
     gfx.drawLine(self.geoms[2].x1, self.geoms[2].y1, self.geoms[2].x2, self.geoms[2].y2)
+    
+    -- debug
+    gfx.drawText('Position: ' .. math.floor(self.x * 10)/10 .. ', ' .. math.floor(self.y * 10)/10, 10, 10)
+    gfx.drawText('Velocity: ' .. math.floor(self.velx * 10)/10 .. ', ' .. math.floor(self.vely * 10)/10, 10, 30)
+    gfx.drawText('Angle:    ' .. math.floor(self.angle * 10)/10, 10, 50)
+    gfx.drawText('Onground: ' .. tostring(self.onground), 10, 70)
 end
 
 function Katamari:update()

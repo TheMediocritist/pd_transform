@@ -2,7 +2,7 @@ local pd <const> = playdate
 local gfx <const> = pd.graphics
 local geom <const> = pd.geometry
 
-local ground = 220
+--local ground = 220
 
 class('Item').extends(gfx.sprite)
 
@@ -44,6 +44,8 @@ function Item:update()
     self:updateGeometry()
     self:moveBy(self.velx, self.vely)
     self:draw()
+    
+    -- self:setCollideRect(x, y, width, height)
     
 end
 
@@ -114,9 +116,14 @@ function Item:moveTo(x, y)
 end
 
 function Item:scaleBy(percentage)
+    -- update variables
+    self.width *= 1 + percentage
+    self.height *= 1 + percentage
     -- move to origin (0, 0)
     self.transform:translate(-self.x, -self.y)
     self.transform:scale(1 + percentage)
     -- move back to position
     self.transform:translate(self.x, self.y)
 end
+
+-- function Item:setCollideRect()

@@ -1,6 +1,7 @@
 import "CoreLibs/object"
 import "CoreLibs/graphics"
 import "CoreLibs/sprites"
+import "CoreLibs/timer"
 
 import "item"
 import "katamari"
@@ -12,22 +13,28 @@ local gfx <const> = playdate.graphics
 local geom <const> = playdate.geometry
 
 input_vector = geom.vector2D.new(0, 0)
+ground = 220
 
 pd.display.setInverted(true)
 
+local t = nil
 local objects = {}
 
 local function initialize()
-    for i = 1, 20 do
-        objects[#objects+1] = Triangle(math.random(0, 100), 10, 10, 20)
-    end
-    for i = 1, 20 do
-        objects[#objects+1] = Item(math.random(150, 250), 0, 20, 20)
-    end
-    for i = 1, 20 do
-        objects[#objects+1] = Circle(math.random(300, 400), 10, 10, 20)
-    end
     
+    -- make a timer that randomly spits out 5 new shapes every second
+    t = playdate.timer.new(2)
+    t.repeats = true
+    t.timerEndedCallback = function()
+        local shape = {}
+        shape[1] = Circle(math.random(300, 400), 40, 15, 15)
+        shape[2] = Triangle(math.random(0, 100), 10, 10, 20)
+        shape[3] = Item(math.random(150, 250), 0, 20, 20)
+        
+        objects[#objects+1] = shape[math.random(1, 3)]
+    end  
+    
+    -- make the katamari
     katamari = Katamari(20, 60, 30, 30)
 end
 
@@ -35,11 +42,18 @@ initialize()
 
 function pd.update()
     gfx.clear() -- To do: use dirty rects for partial screen updates
+        
+    if pd.buttonJustPressed('b') then
+        katamari:scaleBy(0.1)
+    end
     for o = 1, #objects do
         objects[o]:update()
     end
     katamari:update()
+    pd.timer.updateTimers()
     gfx.fillRect(0, 220, 400, 20)
+    gfx.drawTextAligned('Objects: ' .. #objects, 390, 10, kTextAlignment.right)
+    pd.drawFPS(196, 10)
 end
 
 -- input callbacks
