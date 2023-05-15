@@ -1,9 +1,0 @@
-name=pdtransform
-author=YesNo
-description=Learning about transforms
-bundleID=com.dingles.pdTransform
-version=1.0
-buildNumber=100
-imagePath=SystemAssets
-pdxversion=20000
-buildtime=737508191
